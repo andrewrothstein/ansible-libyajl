@@ -1,0 +1,4 @@
+---
+libyajl_name : 'yajl-{{libyajl_ver}}'
+libyajl_tgz : '{{libyajl_ver}}.tar.gz'
+libyajl_tgz_url : '{{libyajl_mirror}}/{{libyajl_tgz}}'

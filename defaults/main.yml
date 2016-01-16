@@ -1,0 +1,4 @@
+---
+libyajl_ver : '2.1.0'
+libyajl_mirror : 'https://github.com/lloyd/yajl/archive'
+libjayl_cleanup : False

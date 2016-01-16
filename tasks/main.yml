@@ -1,0 +1,31 @@
+---
+- name: download src...
+  get_url: >-
+    url={{libyajl_tgz_url}}
+    dest=/tmp/libyajl.tgz
+    owner=root
+    group=root
+    mode=644
+
+- name: unarchive...
+  unarchive: >-
+    copy=no
+    src=/tmp/libyajl.tgz
+    dest=/opt
+    owner=root
+    group=root
+
+- name: configure...
+  command: ./configure
+  args:
+    chdir: /opt/{{libyajl_name}}
+    creates: Makefile
+
+- name: build/install...
+  command: make install
+  args:
+    chdir: /opt/{{libyajl_name}}
+
+- name: cleanup...
+  command: rm -rf /opt/{{libyajl_name}} /tmp/libyajl.tgz
+  when: libyajl_cleanup
