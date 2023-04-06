@@ -1,4 +1,6 @@
 ---
-libyajl_name : 'yajl-{{libyajl_ver}}'
-libyajl_tgz : '{{libyajl_ver}}.tar.gz'
-libyajl_tgz_url : '{{libyajl_mirror}}/{{libyajl_tgz}}'
+libyajl_name : yajl-{{ libyajl_ver }}
+libyajl_tgz : '{{ libyajl_ver }}.tar.gz'
+libyajl_tgz_url : '{{ libyajl_mirror }}/{{ libyajl_tgz }}'
+libyajl_tmp_tgz: /tmp/{{ libyajl_tgz }}
+libyajl_src_dir: '{{ libyajl_parent_src_dir }}/{{ libyajl_name }}'

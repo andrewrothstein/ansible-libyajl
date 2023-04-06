@@ -1,31 +1,51 @@
 ---
+- include_role:
+    name: andrewrothstein.unarchive-deps
+- include_role:
+    name: andrewrothstein.gcc-toolbox
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
 - name: download src...
-  get_url: >-
-    url={{libyajl_tgz_url}}
-    dest=/tmp/libyajl.tgz
-    owner=root
-    group=root
-    mode=644
-
+  become: true
+  become_user: root
+  get_url:
+    url: '{{ libyajl_tgz_url }}'
+    dest: '{{ libyajl_tmp_tgz }}'
+    mode: 0644
 - name: unarchive...
-  unarchive: >-
-    copy=no
-    src=/tmp/libyajl.tgz
-    dest=/opt
-    owner=root
-    group=root
-
+  become: true
+  become_user: root
+  unarchive:
+    remote_src: true
+    src: '{{ libyajl_tmp_tgz }}'
+    dest: '{{ libyajl_parent_src_dir }}'
+    creates: '{{ libyajl_src_dir }}'
 - name: configure...
-  command: ./configure
+  become: true
+  become_user: root
+  command: '{{ libyafl_src_dir }}/configure'
   args:
-    chdir: /opt/{{libyajl_name}}
-    creates: Makefile
-
+    chdir: '{{ libyajl_src_dir }}'
+    creates: '{{ libyafl_src_dir }}/Makefile'
 - name: build/install...
+  become: true
+  become_user: root
   command: make install
   args:
-    chdir: /opt/{{libyajl_name}}
-
+    chdir: '{{ libyajl_src_dir }}'
 - name: cleanup...
-  command: rm -rf /opt/{{libyajl_name}} /tmp/libyajl.tgz
-  when: libyajl_cleanup
+  become: true
+  become_user: root
+  file:
+    path:
+      - '{{ libyajl_src_dir }}'
+      - '{{ libyafl_tmp_tgz }}'
+    state: absent

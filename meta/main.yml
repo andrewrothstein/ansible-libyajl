@@ -1,24 +1,34 @@
 ---
 galaxy_info:
   author: Andrew Rothstein
-  description: role to build and install libyajl from source
-  company: BlackRock
+  description: libyajl
+  company: BlackRock Financial Management
   license:
     - MIT
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
   platforms:
+    - name: Alpine
+      versions:
+        - all
+    - name: Archlinux
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
     - name: EL
       versions:
-        - 7
+        - 8
+        - 9
     - name: Fedora
       versions:
-        - 21
+        - 36
+        - 37
     - name: Ubuntu
       versions:
-        - trusty
-
-  categories:
+        - focal
+        - jammy
+  galaxy_tags:
     - development
-
-dependencies: []
-  
+  role_name: libyajl
