@@ -3,3 +3,5 @@
   version: 3.0.3
 - name: andrewrothstein.gcc_toolbox
   version: 2.1.0
+- name: andrewrothstein.cmake
+  version: v2.2.28

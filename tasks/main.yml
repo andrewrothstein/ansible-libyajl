@@ -5,6 +5,9 @@
 - name: Installing andrewrothstein.gcc_toolbox
   ansible.builtin.include_role:
     name: andrewrothstein.gcc_toolbox
+- name: Installing andrewrothstein.cmake
+  ansible.builtin.include_role:
+    name: andrewrothstein.cmake
 - name: Resolve platform specific vars
   ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
@@ -33,10 +36,10 @@
 - name: Configure...
   become: true
   become_user: root
-  ansible.builtin.command: '{{ libyafl_src_dir }}/configure'
+  ansible.builtin.command: '{{ libyajl_src_dir }}/configure'
   args:
     chdir: '{{ libyajl_src_dir }}'
-    creates: '{{ libyafl_src_dir }}/Makefile'
+    creates: '{{ libyajl_src_dir }}/Makefile'
 - name: Make Install...
   become: true
   become_user: root
@@ -50,5 +53,5 @@
   ansible.builtin.file:
     path:
       - '{{ libyajl_src_dir }}'
-      - '{{ libyafl_tmp_tgz }}'
+      - '{{ libyajl_tmp_tgz }}'
     state: absent

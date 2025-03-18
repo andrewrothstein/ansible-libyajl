@@ -1,4 +1,4 @@
 ---
 libyajl_ver: 2.1.0
-libyajl_mirror: https://github.com/lloyd/yajl/archive
+libyajl_mirror: https://github.com/lloyd/yajl/archive/refs/tags
 libyajl_parent_src_dir: /opt

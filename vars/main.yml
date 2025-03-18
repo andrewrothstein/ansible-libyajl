@@ -1,6 +1,8 @@
 ---
+# https://github.com/lloyd/yajl/archive/refs/tags/2.1.0.tar.gz
+libyajl_tgz_url: '{{ libyajl_mirror }}/{{ libyajl_ver }}/{{ libyajl_ver }}.tar.gz'
+
 libyajl_name: yajl-{{ libyajl_ver }}
-libyajl_tgz: '{{ libyajl_ver }}.tar.gz'
-libyajl_tgz_url: '{{ libyajl_mirror }}/{{ libyajl_tgz }}'
+libyajl_tgz: '{{ libyajl_name }}.tar.gz'
 libyajl_tmp_tgz: /tmp/{{ libyajl_tgz }}
 libyajl_src_dir: '{{ libyajl_parent_src_dir }}/{{ libyajl_name }}'
