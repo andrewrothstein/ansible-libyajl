@@ -1,10 +1,12 @@
 ---
-- include_role:
-    name: andrewrothstein.unarchive-deps
-- include_role:
-    name: andrewrothstein.gcc-toolbox
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Installing andrewrothstein.unarchiedeps
+  ansible.builtin.include_role:
+    name: andrewrothstein.unarchivedeps
+- name: Installing andrewrothstein.gcc_toolbox
+  ansible.builtin.include_role:
+    name: andrewrothstein.gcc_toolbox
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -13,38 +15,39 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: download src...
+- name: Downloading src...
   become: true
   become_user: root
-  get_url:
+  ansible.builtin.get_url:
     url: '{{ libyajl_tgz_url }}'
     dest: '{{ libyajl_tmp_tgz }}'
-    mode: 0644
-- name: unarchive...
+    mode: '644'
+- name: Unarchive...
   become: true
   become_user: root
-  unarchive:
+  ansible.builtin.unarchive:
     remote_src: true
     src: '{{ libyajl_tmp_tgz }}'
     dest: '{{ libyajl_parent_src_dir }}'
     creates: '{{ libyajl_src_dir }}'
-- name: configure...
+- name: Configure...
   become: true
   become_user: root
-  command: '{{ libyafl_src_dir }}/configure'
+  ansible.builtin.command: '{{ libyafl_src_dir }}/configure'
   args:
     chdir: '{{ libyajl_src_dir }}'
     creates: '{{ libyafl_src_dir }}/Makefile'
-- name: build/install...
+- name: Make Install...
   become: true
   become_user: root
-  command: make install
+  ansible.builtin.command: make install
+  changed_when: false
   args:
     chdir: '{{ libyajl_src_dir }}'
-- name: cleanup...
+- name: Cleanup...
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     path:
       - '{{ libyajl_src_dir }}'
       - '{{ libyafl_tmp_tgz }}'
