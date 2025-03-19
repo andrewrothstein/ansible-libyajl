@@ -4,4 +4,4 @@
 - name: andrewrothstein.gcc_toolbox
   version: 2.1.0
 - name: andrewrothstein.cmake
-  version: v2.2.28
+  version: v2.3.0
